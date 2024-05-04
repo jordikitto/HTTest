@@ -6,20 +6,31 @@ import PackageDescription
 let package = Package(
     name: "HTTest",
     platforms: [
-        .iOS(.v16), .macOS(.v13)
+        .iOS(.v16),
+        .macOS(.v13)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "HTTest",
-            targets: ["HTTest"]
+            targets: ["HTUITest", "HTUITestShared"]
         ),
+        .library(
+            name: "HTTestShared",
+            targets: ["HTUITestShared"]
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "HTTest"
+            name: "HTUITest",
+            dependencies: ["HTUITestShared"],
+            path: "Sources/HTUITest"
         ),
+        .target(
+            name: "HTUITestShared",
+            path: "Sources/HTUITestShared"
+        )
     ]
 )

@@ -28,16 +28,16 @@ import Foundation
 ///     State.willBeHittable(\.statusLabel)
 /// }
 /// ```
-struct ScreenStateBuilder {
-    static func buildBlock<Screen: AppScreen>(_ components: [ScreenState<Screen>]...) -> [ScreenState<Screen>] {
+public struct ScreenStateBuilder {
+    public static func buildBlock<Screen: AppScreen>(_ components: [ScreenState<Screen>]...) -> [ScreenState<Screen>] {
         components.flatMap { $0 }
     }
     
-    static func buildExpression<Screen: AppScreen>(_ expression: ScreenState<Screen>) -> [ScreenState<Screen>] {
+    public static func buildExpression<Screen: AppScreen>(_ expression: ScreenState<Screen>) -> [ScreenState<Screen>] {
         [expression]
     }
     
-    static func buildExpression<Screen: AppScreen>(_ expression: [ScreenState<Screen>]) -> [ScreenState<Screen>] {
+    public static func buildExpression<Screen: AppScreen>(_ expression: [ScreenState<Screen>]) -> [ScreenState<Screen>] {
         expression
     }
 }

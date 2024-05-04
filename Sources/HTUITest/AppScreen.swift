@@ -8,17 +8,14 @@
 import Foundation
 import XCTest
 
-/// Defines an app that can be UI tested.
-protocol App {
-    var app: XCUIApplication { get }
-}
-
 /// Defines a screen in the app.
-protocol AppScreen {
+public protocol AppScreen {
+    associatedtype App: LaunchableApp
+    
     /// Reference to the app being tested
     var app: App { get }
     
-    /// An element unique to this screen, used to identify that the screen has appeared
+    /// Elements unique to this screen, used to identify that the screen has appeared
     var commonState: [State] { get }
     
     init(app: App)
@@ -26,11 +23,14 @@ protocol AppScreen {
 
 // MARK: - Additional Behaviour
 
-extension AppScreen {
+public extension AppScreen {
     typealias State = ScreenState<Self>
     
     /// Taps on `element` and returns the next screen that appears.
-    func expectNextScreen<NextScreen: AppScreen>(file: StaticString = #file, line: UInt = #line) -> NextScreen {
+    func expectNextScreen<NextScreen: AppScreen>(
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> NextScreen where NextScreen.App == App {
         let nextScreen = NextScreen(app: app)
         AssertScreenState(nextScreen, \.commonState, file: file, line: line)
         return nextScreen
@@ -39,7 +39,7 @@ extension AppScreen {
 
 // MARK: - Querying Helpers
 
-extension AppScreen {
+public extension AppScreen {
     func tab(_ identifier: String, atIndex index: Int = 0) -> XCUIElement {
         app.app.tabBars.buttons.matching(identifier: identifier).element(atIndex: index)
     }

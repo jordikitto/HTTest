@@ -8,9 +8,9 @@
 import Foundation
 
 /// Defines state that can be provided to a ``LaunchableEnvironment``.
-protocol LaunchableState: Codable {}
+public protocol LaunchableState: Codable {}
 
-extension LaunchableState {
+public extension LaunchableState {
     static var environmentVariable: String { "UITEST_LAUNCH_STATE" }
     
     func encoded() -> String {
