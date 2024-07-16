@@ -8,9 +8,17 @@
 import Foundation
 import XCTest
 
-/// Defines the state of an element on screen
+/// Defines the state of an element on a screen
 public struct ScreenState<Screen: AppScreen> {
     let validator: (Screen, StaticString, UInt) -> Void
+    
+    /// Ensures the screen contains the given component.
+    public static func containsComponent<S: AppScreen>(_ keyPath: KeyPath<Screen, S>) -> ScreenState {
+        .init { screen, file, line in
+            let componentScreen = screen[keyPath: keyPath]
+            AssertScreenState(componentScreen, \.commonState)
+        }
+    }
     
     /// Ensures the value at `keyPath` is equal to `value`.
     public static func isEqual<T: Equatable>(_ keyPath: KeyPath<Screen, T>, _ value: @autoclosure @escaping () -> T) -> ScreenState {
