@@ -77,6 +77,12 @@ public struct ScreenState<Screen: AppScreen> {
         }
     }
     
+    public static func isEnabled(_ keyPath: KeyPath<Screen, XCUIElement>, timeout: TimeInterval = TestDefaults.immediateTimeOutValue) -> ScreenState {
+        .init { screen, file, line in
+            screen[keyPath: keyPath].wait(for: \.isEnabled, timeout: timeout, file: file, line: line)
+        }
+    }
+    
     public static func isDisabled(_ keyPath: KeyPath<Screen, XCUIElement>) -> ScreenState {
         .init { screen, file, line in
             let element = screen[keyPath: keyPath]

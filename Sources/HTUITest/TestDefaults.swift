@@ -18,6 +18,8 @@ public enum TestDefaults {
     public static let mediumWaitTimeoutValue: TimeInterval = 10
     /// 5 seconds
     public static let shortWaitTimeoutValue: TimeInterval = 5.0
+    /// 0.5 seconds
+    public static let immediateTimeOutValue: TimeInterval = 0.5
     /// 2 seconds
     public static let invertedExpectationTimeoutValue: TimeInterval = 2.0
 }
