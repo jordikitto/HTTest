@@ -17,6 +17,7 @@ public protocol LaunchableApp {
     
     var app: XCUIApplication { get }
     
+    @MainActor
     func launch<Screen: AppScreen>(
         in testCase: XCTestCase,
         state: State,
@@ -26,6 +27,7 @@ public protocol LaunchableApp {
 }
 
 public extension LaunchableApp {
+    @MainActor
     func launch<Screen: AppScreen>(
         in testCase: XCTestCase,
         state: State,
